@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090a0c">
+  <meta name="description" content="Bảng theo dõi thiết bị Rust Device Manager">
+  <title>RDM · Tổng quan</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="RDM, về tổng quan">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span><strong>RDM</strong><small>DEVICE MANAGER</small></span>
+      </a>
+      <div class="connection" id="connection" data-state="connecting">
+        <span class="connection-dot" aria-hidden="true"></span><span id="connection-label">Đang kết nối</span>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="page-heading" id="overview" aria-labelledby="page-title">
+        <div><p class="eyebrow">THIẾT BỊ CỦA BẠN</p><h1 id="page-title">Tổng quan</h1>
+          <p class="device-line"><span class="device-dot" aria-hidden="true"></span><span id="device-name">OPPO Reno2 F</span><span class="muted">· Android <span id="android-version">—</span></span></p>
+        </div>
+        <button class="icon-button" id="refresh-button" type="button" aria-label="Làm mới dữ liệu" title="Làm mới"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M5.6 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.4-3"/></svg></button>
+      </section>
+
+      <div class="notice" id="api-notice" role="status" hidden><span class="notice-light" aria-hidden="true"></span><span>Backend chưa phản hồi · Sẽ tự thử kết nối lại</span></div>
+
+      <section class="overview-grid" aria-label="Trạng thái hệ thống">
+        <article class="panel thermal-panel" id="thermal">
+          <div class="panel-heading"><div class="heading-icon orange" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 14.8V5a3 3 0 0 0-6 0v9.8a5 5 0 1 0 6 0Z"/><path d="M11 11v7"/></svg></div><div><p class="eyebrow">TRẠNG THÁI NHIỆT</p><h2 id="thermal-state">Chưa có dữ liệu</h2></div><span class="state-pill" id="thermal-pill">—</span></div>
+          <div class="chart-wrap" id="thermal-chart-wrap"><div class="chart-ylabels" aria-hidden="true"><span>Cao</span><span>Ấm</span><span>Bình thường</span></div><svg id="thermal-chart" class="line-chart" viewBox="0 0 600 150" preserveAspectRatio="none" role="img" aria-label="Lịch sử nhiệt độ chưa có dữ liệu"><path class="chart-gridline" d="M0 25H600M0 75H600M0 125H600"/><path class="chart-line orange-line" d=""/></svg><span class="chart-placeholder" id="chart-placeholder">Đang chờ dữ liệu nhiệt độ</span></div>
+          <div class="chart-foot"><span id="thermal-chart-label">Chưa có lịch sử</span><span id="thermal-high">Cao nhất: —</span></div>
+        </article>
+
+        <article class="panel battery-panel" id="battery">
+          <div class="panel-heading"><div class="heading-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="17" height="10" rx="2"/><path d="M22 10v4M7 10v4"/></svg></div><div><p class="eyebrow">PIN</p><h2 id="battery-status">Chưa có dữ liệu</h2></div></div>
+          <div class="battery-main"><strong class="big-value" id="battery-level">—<span>%</span></strong><span class="battery-caption">Dung lượng pin</span></div>
+          <div class="progress-track" role="progressbar" aria-label="Mức pin" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="battery-progress"><span id="battery-progress-fill"></span></div>
+          <dl class="metric-list"><div><dt>Nhiệt độ pin</dt><dd id="battery-temp">—</dd></div><div><dt>Điện áp</dt><dd id="battery-voltage">—</dd></div><div><dt>Tình trạng</dt><dd id="battery-health">—</dd></div></dl>
+        </article>
+
+        <article class="panel agent-panel">
+          <div class="panel-heading"><div class="heading-icon violet" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><p class="eyebrow">MONITORING AGENT</p><h2 id="agent-status">Đang chờ backend</h2></div></div>
+          <dl class="metric-list"><div><dt>Thời gian hoạt động</dt><dd id="uptime">—</dd></div><div><dt>Cảm biến khả dụng</dt><dd id="sensor-count">—</dd></div><div><dt>Cập nhật lần cuối</dt><dd id="last-updated">—</dd></div></dl>
+        </article>
+
+        <article class="panel alerts-panel" id="alerts">
+          <div class="panel-heading"><div class="heading-icon red" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></div><div><p class="eyebrow">CẢNH BÁO</p><h2 id="alert-summary">Chưa có dữ liệu</h2></div></div>
+          <div class="alert-list" id="alert-list"><p class="empty-state">Chưa có cảnh báo từ backend.</p></div>
+        </article>
+      </section>
+
+      <section class="panel sensor-panel" id="sensors" aria-labelledby="sensor-title">
+        <div class="section-heading"><div><p class="eyebrow">PHẦN CỨNG</p><h2 id="sensor-title">Cảm biến</h2></div><span class="count-badge" id="sensor-badge">—</span></div>
+        <div class="sensor-list" id="sensor-list"><p class="empty-state">Danh sách cảm biến sẽ xuất hiện khi backend kết nối.</p></div>
+      </section>
+
+      <footer class="page-footer"><span>RUST DEVICE MANAGER</span><span id="footer-updated">Chưa đồng bộ</span></footer>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Điều hướng chính">
+      <a class="nav-item active" href="#overview" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg><span>Tổng quan</span></a>
+      <a class="nav-item" href="#battery"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="17" height="10" rx="2"/><path d="M22 10v4M7 10v4"/></svg><span>Pin</span></a>
+      <a class="nav-item" href="#thermal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V5a3 3 0 0 0-6 0v9.8a5 5 0 1 0 6 0Z"/><path d="M11 11v7"/></svg><span>Nhiệt</span></a>
+      <a class="nav-item" href="#alerts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>Cảnh báo</span></a>
+      <a class="nav-item" href="#sensors"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><span>Cảm biến</span></a>
+    </nav>
+  </div>
+</body>
+</html>
